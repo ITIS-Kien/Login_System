@@ -32,6 +32,12 @@ def login():
             msg = "Incorrect username/password!"
     return render_template('login.html', msg = msg)
 
+@app.route("/home")
+def home():
+    if "loggedin" in session:
+        return render_template("home.html", username=session["username"])
+    return redirect(url_for("login"))
+
 @app.route("/logout")
 def logout():
     session.pop("loggedin", None)
